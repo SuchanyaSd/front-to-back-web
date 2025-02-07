@@ -1,0 +1,40 @@
+import { Route, Routes } from "react-router"
+import Layout from "./Layouts/Layout"
+import Home from "../pages/Home"
+import Abouth from "../pages/Abouth"
+import Login from "../pages/auth/Login"
+import Register from "../pages/auth/Register"
+import Dashboard from "../pages/admin/Dashboard"
+import Manage from "../pages/admin/Manage"
+import HomeUser from "../pages/user/HomeUser"
+
+function AppRoutes() {
+  return (
+    <>
+      <Routes>
+        {/* Public */}
+        <Route path="/" element={<><Layout/></>}>
+            <Route index element={<Home/>} />
+            <Route path="about" element={<Abouth/>} />
+            <Route path="register" element={<Register/>}/>
+            <Route path="login" element={<Login/>} />
+        </Route>
+
+        {/* Private [USER] */}
+        <Route path="user" element={<Layout/>}>
+            <Route index element={<HomeUser/>}/>
+        </Route>
+
+        {/* Private [ADMIN] */}
+        <Route path="admin" element={<Layout/>}>
+            <Route index element={<Dashboard/>} />
+            <Route path="manage" element={<Manage/>} />
+        </Route>
+
+        <Route path="*" element={<h1>404 Not found</h1>} />
+      </Routes>
+    </>
+  )
+}
+
+export default AppRoutes
