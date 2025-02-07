@@ -7,6 +7,7 @@ import Register from "../pages/auth/Register"
 import Dashboard from "../pages/admin/Dashboard"
 import Manage from "../pages/admin/Manage"
 import HomeUser from "../pages/user/HomeUser"
+import Register1 from "../pages/auth/Register1"
 
 function AppRoutes() {
   return (
@@ -16,7 +17,7 @@ function AppRoutes() {
         <Route path="/" element={<><Layout/></>}>
             <Route index element={<Home/>} />
             <Route path="about" element={<Abouth/>} />
-            <Route path="register" element={<Register/>}/>
+            <Route path="register" element={<Register1/>}/>
             <Route path="login" element={<Login/>} />
         </Route>
 

@@ -2,20 +2,17 @@ import { createAlert } from "../../utils/createAlert"
 import { useForm } from "react-hook-form"
 import FormInput from "../../components/form/FormInput"
 import Buttons from "../../components/form/Buttons"
-import { useNavigate } from "react-router"
 
 // Validator
-import { loginSchema } from "../../utils/validators"
+import { registerSchema } from "../../utils/validators"
 import {zodResolver} from "@hookform/resolvers/zod"
-import { actionLogin} from "../../api/auth"
+import { actionRegister } from "../../api/auth"
 
 
-function Login() {
+function Register1() {
   //Javascript
-  const navigate = useNavigate()
-
   const { register, handleSubmit, formState, reset } = useForm({
-    resolver : zodResolver(loginSchema)
+    resolver : zodResolver(registerSchema)
   })
   const { isSubmitting, errors } = formState
   console.log(errors)
@@ -26,38 +23,32 @@ function Login() {
     await new Promise((resolve) => setTimeout(resolve, 2000))
 
     try {
-      const res = await actionLogin(value)
-      const role = res.data.payload.role
-      roleRedirect(role)
-      // reset()
-      createAlert("success", "Login Success")
+      const res = await actionRegister(value)
+      console.log(res)
+      reset()
+      createAlert("success", "Register Success")
     } catch (err) {
       createAlert("info", err.response?.data?.message)
       console.log(err.response?.data?.message)
     }
   }
 
-  const roleRedirect = (role) => {
-    if (role === "ADMIN") {
-      navigate("/admin")
-    } else {
-      navigate("/user")
-    }
-  }
-
   return (
     <div className="flex w-full h-full justify-end">
       <div className="w-64 border p-4 rounded-md">
-        <h1 className="text-xl font-bold text-center">Login</h1>
+        <h1 className="text-xl font-bold text-center">Register1</h1>
         {/* Form */}
         <form onSubmit={handleSubmit(hdlSubmit)}>
           <div className="flex flex-col gap-2 py-4">
             <FormInput register={register} name={"email"} errors={errors}/>
+            <FormInput register={register} name={"firstname"} errors={errors}/>
+            <FormInput register={register} name={"lastname"} errors={errors}/>
             <FormInput register={register} name={"password"} errors={errors} type="password"/>
+            <FormInput register={register} name={"confirmPassword"} errors={errors} type="password"/>
           </div>
 
           <div className="flex justify-center">
-            <Buttons isSubmitting={isSubmitting} label={"Login"}/>
+            <Buttons isSubmitting={isSubmitting} label={"Rigister"}/>
           </div>
 
         </form>
@@ -66,4 +57,4 @@ function Login() {
   )
 }
 
-export default Login
+export default Register1

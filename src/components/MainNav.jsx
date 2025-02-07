@@ -9,7 +9,7 @@ function MainNav() {
       </div>
       <div className="flex gap-4">
         <Link to="register">Register</Link>
-        <Link tp="login">Login</Link>
+        <Link to="login">Login</Link>
       </div>
     </nav>
   )

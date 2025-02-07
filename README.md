@@ -95,7 +95,26 @@ function AppRoutes() {
 export default AppRoutes
 ```
 
-## Step 4 Sweetalert2
+## Step ? Sweetalert2
 ```bash
 npm install sweetalert2
+```
+
+## Step 4 React-Hook-form
+https://www.react-hook-form.com/get-started
+```bash
+npm install react-hook-form
+```
+
+## Step 5 Icon
+https://lucide.dev/guide/installation
+```bash
+pnpm install lucide-vue-next
+```
+
+## Step 6 Validate with Zod
+https://github.com/react-hook-form/resolvers
+```bash
+npm install @hookform/resolvers
+npm i zod
 ```
