@@ -3,11 +3,13 @@ import Layout from "./Layouts/Layout"
 import Home from "../pages/Home"
 import Abouth from "../pages/Abouth"
 import Login from "../pages/auth/Login"
-import Register from "../pages/auth/Register"
+// import Register from "../pages/auth/Register"
 import Dashboard from "../pages/admin/Dashboard"
 import Manage from "../pages/admin/Manage"
 import HomeUser from "../pages/user/HomeUser"
 import Register1 from "../pages/auth/Register1"
+import ProtectRoute from "./ProtectRoute"
+import LayoutAdmin from "./Layouts/LayoutAdmin"
 
 function AppRoutes() {
   return (
@@ -22,12 +24,12 @@ function AppRoutes() {
         </Route>
 
         {/* Private [USER] */}
-        <Route path="user" element={<Layout/>}>
+        <Route path="user" element={<ProtectRoute el={<Layout/>} allows={["USER"]}/>}>
             <Route index element={<HomeUser/>}/>
         </Route>
 
         {/* Private [ADMIN] */}
-        <Route path="admin" element={<Layout/>}>
+        <Route path="admin" element={<ProtectRoute el={<LayoutAdmin/>} allows={["ADMIN"]}/>}>
             <Route index element={<Dashboard/>} />
             <Route path="manage" element={<Manage/>} />
         </Route>

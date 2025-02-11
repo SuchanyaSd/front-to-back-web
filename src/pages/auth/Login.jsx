@@ -8,10 +8,16 @@ import { useNavigate } from "react-router"
 import { loginSchema } from "../../utils/validators"
 import {zodResolver} from "@hookform/resolvers/zod"
 import { actionLogin} from "../../api/auth"
+import useAuthStore from "../../store/auth-store"
 
 
 function Login() {
   //Javascript
+  // Zustand
+
+  const actionLoginWithZustand = useAuthStore((state) => state.actionLoginWithZustand)
+  // console.log(test.user)
+
   const navigate = useNavigate()
 
   const { register, handleSubmit, formState, reset } = useForm({
@@ -21,21 +27,32 @@ function Login() {
   console.log(errors)
 
   const hdlSubmit = async (value) => {
-
     // Delay
-    await new Promise((resolve) => setTimeout(resolve, 2000))
+    await new Promise((resolve) => setTimeout(resolve, 1000))
 
-    try {
-      const res = await actionLogin(value)
-      const role = res.data.payload.role
-      roleRedirect(role)
-      // reset()
-      createAlert("success", "Login Success")
-    } catch (err) {
-      createAlert("info", err.response?.data?.message)
-      console.log(err.response?.data?.message)
+    const res = await actionLoginWithZustand(value)
+    console.log(res)
+    if (res.success) {
+      roleRedirect(res.role)
+      reset()
+      createAlert("success", "Welcome, back")
+    } else {
+      createAlert("info", "Something Wrong!!")
     }
   }
+
+  //   try {
+  //     // const res = await actionLogin(value)
+  //     // console.log(res)
+  //     // const role = res.data.payload.role
+  //     // roleRedirect(role)
+  //     // // reset()
+  //     // createAlert("success", "Login Success")
+  //   } catch (err) {
+  //     createAlert("info", err.response?.data?.message)
+  //     console.log(err.response?.data?.message)
+  //   }
+  // }
 
   const roleRedirect = (role) => {
     if (role === "ADMIN") {
